@@ -1,0 +1,47 @@
+.animate-boldest {
+  animation: boldest 0.5s forwards;
+  animation-timing-function: steps(1, end);
+}
+
+.animate-bold {
+  animation: bold 1s forwards;
+  animation-timing-function: steps(1, end);
+}
+
+@keyframes boldest {
+  0% {
+    font-weight: 400; /* Normal weight */
+  }
+  100% {
+    font-weight: 900; /* Maximum boldness */
+  }
+}
+
+@keyframes bold {
+  0% {
+    font-weight: 400; /* Normal weight */
+  }
+  100% {
+    font-weight: 400; /* Maximum boldness */
+  }
+}
+
+@keyframes back-boldest {
+  0% {
+    font-weight: 900; /* Normal weight */
+  }
+  100% {
+    font-weight: 400; /* Maximum boldness */
+  }
+}
+
+@keyframes back-bold {
+  0% {
+    font-weight: 400; /* Normal weight */
+  }
+  100% {
+    font-weight: 400; /* Maximum boldness */
+  }
+}
+
+

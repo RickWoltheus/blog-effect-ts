@@ -1,6 +1,5 @@
 import { Context, Data, Effect } from 'effect'
 import { UnknownException } from 'effect/Cause'
-import fs from 'node:fs'
 
 type TFSArgs = { 
     readFileSync: (path: string) => Effect.Effect<never, ReadFileSyncError | UnknownException, Buffer>

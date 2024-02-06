@@ -11,16 +11,23 @@ export const dynamic = 'force-dynamic' // defaults to auto
 
 const main = Effect.gen(function* (_) {
     const postsService = yield* _(PostService)
-    const failureOrSuccess = yield* _(Effect.either(postsService.getPostsProgram))
+    const results = Effect.all([postsService.getFeaturedPosts, postsService.getOtherPosts])
+    const failureOrSuccess = yield* _(Effect.either(results))
 
     return yield* _(Effect.match(failureOrSuccess, {
          onFailure: (error) => {
             return NextResponse.json(error, { status: 500 })
          }, 
-         onSuccess: (result) => NextResponse.json(result, { status: 200 })
+         onSuccess: (results) => NextResponse.json({ featured: results[0], other: results[1] }, { status: 200 })
      }))
  })
 
+
+export const PostsGETResultSchema = S.struct({
+    featured: PostsSchema,
+    other: PostsSchema
+})
+type PostsGETResult = S.Schema.To<typeof PostsGETResultSchema>
 
 export async function GET() {
     const res = await Effect.runPromise(Effect.provide(main, Context.merge(serverContext, PostsContext)))
